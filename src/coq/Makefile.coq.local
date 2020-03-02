@@ -1,0 +1,2 @@
+clean::
+	rm -f Makefile.coq Makefile.coq.conf
