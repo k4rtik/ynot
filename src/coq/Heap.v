@@ -70,6 +70,7 @@ Definition hvalo_plus (v1 v2 : option hval) :=
       end
   end.
 
+Declare Scope heap_scope.
 Bind Scope heap_scope with heap.
 Delimit Scope heap_scope with heap.
 

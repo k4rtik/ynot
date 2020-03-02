@@ -40,6 +40,7 @@ Ltac not_eq p q := (constr_eq p q ; fail 1) || idtac.
 
 Ltac equate e1 e2 := not_eq e1 e2; let H := fresh in assert (H : e1 = e2); [reflexivity | clear H].
 
+Declare Scope inhabited_scope.
 
 Notation "[ T ]" := (inhabited T) (at level 0, T at level 200) : type_scope.
 Notation "[ v ]" := (inhabits v) (at level 0, v at level 200) : inhabited_scope.

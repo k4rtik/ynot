@@ -18,7 +18,7 @@
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
@@ -61,7 +61,7 @@ Qed.
 
 Theorem himp_empty_prem' : forall p q,
   p * __ ==> q
-  -> p ==> q. intros p q; now rewrite empty_right. 
+  -> p ==> q. intros p q; now rewrite empty_right.
 Qed.
 
 Theorem himp_empty_conc : forall p q,
@@ -81,31 +81,31 @@ Qed.
 
 Theorem hstar_assoc p q r :
   p * (q * r) <==> p * q * r.
-Proof. split; intros. 
+Proof. split; intros.
   unfold hprop_imp, hprop_sep; intuition. repeat (dest_exists || dest_conj).
-  exists (h1 * h0)%heap; exists h3%heap. intuition. 
-  eauto using split_splice''. 
-  exists h1 ; exists h0. intuition. apply split_refl. 
+  exists (h1 * h0)%heap; exists h3%heap. intuition.
+  eauto using split_splice''.
+  exists h1 ; exists h0. intuition. apply split_refl.
   destruct Hl. destruct Hrrl. subst. eauto with Ynot.
 
   unfold hprop_imp, hprop_sep; intuition. repeat (dest_exists || dest_conj).
   exists h0; exists  (h2 * h3)%heap. intuition.
   eapply split_splice; eauto with Ynot.
-  exists h3; exists h2. intuition. 
+  exists h3; exists h2. intuition.
   destruct Hl. destruct Hrll. subst. apply split_comm.
   apply split_refl. eauto with Ynot.
 Qed.
 
 Theorem himp_assoc_prem1 : forall p q r s,
   p * (q * r) ==> s
-  -> (p * q) * r ==> s. 
+  -> (p * q) * r ==> s.
 Proof. intros; now rewrite <- hstar_assoc.
 Qed.
 
 Theorem himp_assoc_prem2 : forall p q r s,
   q * (p * r) ==> s
   -> (p * q) * r ==> s.
-Proof. intros. now rewrite (hstar_comm p q), <- hstar_assoc. 
+Proof. intros. now rewrite (hstar_comm p q), <- hstar_assoc.
 Qed.
 
 Theorem himp_comm_conc : forall p q r,
@@ -135,7 +135,7 @@ Ltac mark_existential e := generalize (isExistential_any e); intro.
 Theorem himp_ex_prem : forall T (p1 : T -> _) p2 p,
   (forall v, isExistential v -> p1 v * p2 ==> p)
   -> hprop_ex p1 * p2 ==> p.
-  Hint Immediate isExistential_any.
+  Hint Immediate isExistential_any : core.
 
   unfold hprop_imp, hprop_ex, hprop_sep; simpl; intuition.
   do 2 destruct H0; intuition.
@@ -145,9 +145,9 @@ Qed.
 
 Theorem himp_ex_conc : forall p T (p1 : T -> _) p2,
   (exists v, p ==> p1 v * p2)
-  -> p ==> hprop_ex p1 * p2. 
+  -> p ==> hprop_ex p1 * p2.
 Proof. red.
-  intros. destruct H. 
+  intros. destruct H.
   generalize (H _ H0); clear H H0. simp_heap. eauto 7 with Ynot.
 Qed.
 
@@ -163,10 +163,10 @@ Hint Extern 4 => progress (unfold hprop_unpack in *) : Ynot.
 
 Theorem hiff_unpack : forall (T : Set) (x : T) p1,
   p1 x <==> hprop_unpack [x] p1.
-Proof. simp_heap. split; intros; simp_heap. red. eauto 7 with Ynot. 
+Proof. simp_heap. split; intros; simp_heap. red. eauto 7 with Ynot.
   generalize (pack_injective Hl); intros; subst; eauto with Ynot.
-Qed. 
-  
+Qed.
+
 Theorem himp_unpack_prem : forall (T : Set) (x : T) p1 p2 p,
   p1 x * p2 ==> p
   -> hprop_unpack [x] p1 * p2 ==> p.
@@ -196,7 +196,7 @@ Theorem himp_split : forall p1 p2 q1 q2,
   p1 ==> q1
   -> p2 ==> q2
   -> p1 * p2 ==> q1 * q2.
-Proof. intros p1 p2 q1 q2 H H'; now rewrite H, H'. 
+Proof. intros p1 p2 q1 q2 H H'; now rewrite H, H'.
 Qed.
 
 Theorem himp_pure P : [P] ==> emp.
@@ -228,14 +228,14 @@ Qed.
 Theorem himp_inj_prem_add : forall (P : Prop) p q,
   P
   -> [P] * p ==> q
-  -> p ==> q. 
+  -> p ==> q.
 Proof. intros. now rewrite <- (pure_imp_rev p H) in H0.
 Qed.
 
 Theorem himp_inj_conc : forall (P : Prop) p q,
   P
   -> p ==> q
-  -> p ==> [P] * q. 
+  -> p ==> [P] * q.
 Proof. intros. now rewrite <- (pure_imp_rev q H). Qed.
 
 Theorem himp_frame : forall p q1 q2,
@@ -252,7 +252,7 @@ Proof. intros; subst. now rewrite H0. Qed.
 Lemma himp_cell_split : forall (q1 q2 : perm) (p : ptr) A (v:A),
   q1 |#| q2 -> p -[ q1 + q2 ]-> v ==> p -[ q1 ]-> v * p -[ q2 ]-> v.
 Proof.
-  red. intuition. 
+  red. intuition.
   exists (p |--> (Dyn v, q1))%heap.
   exists (p |--> (Dyn v, q2))%heap.
   intuition; try solve [red; intuition].
@@ -270,8 +270,8 @@ Qed.
 Lemma himp_cell_join : forall (q1 q2 : perm) (p : ptr) A (v:A),
   q1 |#| q2 -> p -[ q1 ]-> v * p -[ q2 ]-> v ==> p -[ q1 + q2 ]-> v.
 Proof.
-  red. intuition. 
-  red in H0. destruct H0. destruct H0. unfold split in H0. 
+  red. intuition.
+  red in H0. destruct H0. destruct H0. unfold split in H0.
   intuition. subst.
   unfold hprop_cell, join, read in *.
   intuition.
@@ -290,12 +290,12 @@ Proof. intros; now transitivity Q. Qed.
 Lemma himp_apply P T : P ==> T -> forall Q, Q ==> P -> Q ==> T.
 Proof. intros. now rewrite H0. Qed.
 
-Theorem add_fact F P Q R : 
+Theorem add_fact F P Q R :
   (P ==> [F] * ??) ->
   (F -> (P * Q ==> R)) ->
   (P * Q ==> R).
 Proof.
-  repeat intro. apply H0; auto. 
+  repeat intro. apply H0; auto.
   destruct H1 as [? [? [? [Px ?]]]].
   destruct (H _ Px) as [? [? [? [[? ?] ?]]]]; trivial.
 Qed.
@@ -323,8 +323,8 @@ Qed.
 Theorem himp_frame_prem : forall p1 p2 q p1',
   p1 ==> p1'
   -> p1' * p2 ==> q
-  -> p1 * p2 ==> q. 
-Proof. intros. now rewrite H. 
+  -> p1 * p2 ==> q.
+Proof. intros. now rewrite H.
 Qed.
 
 Theorem himp_frame_conc : forall p q1 q2 q1',

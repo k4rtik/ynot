@@ -18,7 +18,7 @@
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
@@ -47,11 +47,11 @@ Definition STsep pre T (post : T -> hprop) : Set :=
   ST (pre * ??) (fun h v h' =>
     forall h1 h2, h ~> h1 * h2
       -> pre h1
-      -> exists h1', h' ~> h1' * h2 
+      -> exists h1', h' ~> h1' * h2
         /\ post v h1').
 Definition Cmd := STsep.
 
-Arguments Scope STsep [hprop_scope type_scope hprop_scope].
+Arguments STsep pre%hprop_scope T%type_scope post%hprop_scope.
 
 Ltac hreduce :=
   repeat match goal with
@@ -117,7 +117,7 @@ Section Sep.
 
     ynot 1.
     generalize (H1 h1 h2 H4 H5). intros. destruct H8.
-    destruct H8. apply (H3 _ _ H8 (H _ _ H9)). 
+    destruct H8. apply (H3 _ _ H8 (H _ _ H9)).
   Qed.
 
   Definition SepSeq pre1 (post1 : unit -> hprop)
@@ -167,13 +167,13 @@ Section Sep.
 
     destruct H.
     ynot 2.
-    rewrite (split2_read H0 H1 H2). simpl. 
+    rewrite (split2_read H0 H1 H2). simpl.
     eauto.
 
 
     exists h1. intuition.
     replace v with x; trivial.
-    destruct H; destruct H1. ynot 2. 
+    destruct H; destruct H1. ynot 2.
     generalize (split2_read H0 H5 H7).
     rewrite H2. simpl. intro.
     symmetry. eapply Dynq_inj_Somed. eauto.
@@ -230,11 +230,11 @@ Section Sep.
     refine {{{STReturn tt}}}; intuition; subst; eauto.
   Qed.
 
-  Implicit Arguments SepStrengthen [pre T post].
+  Arguments SepStrengthen [pre T post].
   Notation "{{ st }}" := (SepWeaken _ (SepStrengthen _ st _) _).
 
   (* We can define easily derive Fix on multiple parameters, using currying *)
-  Notation Local "'curry' f" := (fun a => f (projT1 a) (projT2 a)) (no associativity, at level 75).
+  Local Notation "'curry' f" := (fun a => f (projT1 a) (projT2 a)) (no associativity, at level 75).
 
   Definition SepFix2 : forall (dom1 : Type) (dom2: forall (d1:dom1), Type) (ran : forall (d1 : dom1) (d2:dom2 d1), Type)
     (pre : forall (d1: dom1) (d2:dom2 d1), hprop) (post : forall v1 v2, ran v1 v2 -> hprop)
@@ -242,51 +242,52 @@ Section Sep.
       -> (forall v1 v2, STsep (pre v1 v2) (post v1 v2))) v1 v2,
     STsep (pre v1 v2) (post v1 v2).
     Proof. intros;
-    refine (@SepFix (sigT dom2)%type 
+    refine (@SepFix (sigT dom2)%type
       (curry ran) (curry pre) (curry post)
       (fun self x => F (fun a b => self (@existT _ _ a b)) (projT1 x) (projT2 x)) (@existT _ _ v1 v2)).
     Qed.
 
-  Definition SepFix3 : forall (dom1 : Type) (dom2: forall (d1:dom1), Type) 
+  Definition SepFix3 : forall (dom1 : Type) (dom2: forall (d1:dom1), Type)
     (dom3: forall (d1:dom1) (d2:dom2 d1), Type)
     (ran : forall (d1 : dom1) (d2:dom2 d1) (d3:dom3 d1 d2), Type)
-    (pre : forall (d1: dom1) (d2:dom2 d1) (d3:dom3 d1 d2), hprop) 
+    (pre : forall (d1: dom1) (d2:dom2 d1) (d3:dom3 d1 d2), hprop)
     (post : forall v1 v2 v3, ran v1 v2 v3 -> hprop)
     (F : (forall v1 v2 v3, STsep (pre v1 v2 v3) (post v1 v2 v3))
       -> (forall v1 v2 v3, STsep (pre v1 v2 v3) (post v1 v2 v3)))
     v1 v2 v3, STsep (pre v1 v2 v3) (post v1 v2 v3).
     Proof. intros;
     refine (@SepFix2 (sigT dom2)%type (curry dom3)
-      (curry ran) (curry pre) (curry post) 
+      (curry ran) (curry pre) (curry post)
       (fun self x => F (fun a b c => self (@existT _ _ a b) c) (projT1 x) (projT2 x)) (@existT _ _ v1 v2) v3).
     Qed.
 
-  Definition SepFix4 : forall (dom1 : Type) (dom2: forall (d1:dom1), Type) 
+  Definition SepFix4 : forall (dom1 : Type) (dom2: forall (d1:dom1), Type)
     (dom3: forall (d1:dom1) (d2:dom2 d1), Type) (dom4: forall (d1:dom1) (d2:dom2 d1) (d3:dom3 d1 d2), Type)
     (ran : forall (d1 : dom1) (d2:dom2 d1) (d3:dom3 d1 d2) (d4:dom4 d1 d2 d3), Type)
-    (pre : forall (d1: dom1) (d2:dom2 d1) (d3:dom3 d1 d2) (d4:dom4 d1 d2 d3), hprop) 
+    (pre : forall (d1: dom1) (d2:dom2 d1) (d3:dom3 d1 d2) (d4:dom4 d1 d2 d3), hprop)
     (post : forall v1 v2 v3 v4, ran v1 v2 v3 v4 -> hprop)
     (F : (forall v1 v2 v3 v4, STsep (pre v1 v2 v3 v4) (post v1 v2 v3 v4))
       -> (forall v1 v2 v3 v4, STsep (pre v1 v2 v3 v4) (post v1 v2 v3 v4)))
     v1 v2 v3 v4, STsep (pre v1 v2 v3 v4) (post v1 v2 v3 v4).
     Proof. intros;
     refine (@SepFix3 (sigT dom2)%type (curry dom3) (curry dom4)
-      (curry ran) (curry pre) (curry post) 
+      (curry ran) (curry pre) (curry post)
       (fun self x =>  F (fun a b c d => self (@existT _ _ a b) c d) (projT1 x) (projT2 x))
       (@existT _ _ v1 v2) v3 v4).
     Qed.
 
 End Sep.
 
-Implicit Arguments SepFree [T].
-Implicit Arguments SepStrengthen [pre T post].
-Implicit Arguments SepFix [dom ran].
-Implicit Arguments SepFix2 [dom1 dom2 ran].
-Implicit Arguments SepFix3 [dom1 dom2 dom3 ran].
-Implicit Arguments SepFix4 [dom1 dom2 dom3 dom4 ran].
+Arguments SepFree [T].
+Arguments SepStrengthen [pre T post].
+Arguments SepFix [dom ran].
+Arguments SepFix2 [dom1 dom2 ran].
+Arguments SepFix3 [dom1 dom2 dom3 ran].
+Arguments SepFix4 [dom1 dom2 dom3 dom4 ran].
 
 Notation "{{ st }}" := (SepWeaken _ (SepStrengthen _ st _) _).
 
+Declare Scope stsep_scope.
 Notation "p <@ c" := (SepStrengthen p c _) (left associativity, at level 81) : stsep_scope.
 Notation "c @> p" := (SepWeaken p c _) (left associativity, at level 81) : stsep_scope.
 Infix "<@>" := SepFrame (left associativity, at level 81) : stsep_scope.
@@ -308,11 +309,12 @@ Delimit Scope stsep_scope with stsep.
 
 (** Alternate notations for more spec inference *)
 
+Declare Scope stsepi_scope.
 Notation "p <@ c" := (SepStrengthen p c _) (left associativity, at level 81) : stsepi_scope.
 Notation "c @> p" := (SepWeaken p c _) (left associativity, at level 81) : stsepi_scope.
 Infix "<@>" := SepFrame (left associativity, at level 81) : stsepi_scope.
 
-Open Local Scope stsepi_scope.
+Local Open Scope stsepi_scope.
 
 Notation "'Return' x" := (SepReturn x <@> _) (at level 75) : stsepi_scope.
 Notation "x <- c1 ; c2" := (SepBind _ (SepStrengthen _ c1 _) _ (fun x => c2))

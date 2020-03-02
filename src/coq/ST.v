@@ -39,7 +39,7 @@ Set Implicit Arguments.
 Definition hpre := hprop.
 Definition hpost T := heap -> T -> hprop.
 
-Open Local Scope heap_scope.
+Local Open Scope heap_scope.
 
 Parameter ST : hpre -> forall T, hpost T -> Set.
 
@@ -84,4 +84,4 @@ Parameter STWeaken : forall pre T (post post' : hpost T),
   -> (forall h v h', pre h -> post h v h' -> post' h v h')
   -> ST pre post'.
 
-Arguments Scope ST [hprop_scope type_scope hprop_scope].
+Arguments ST hpre%hprop_scope T%type_scope hpost%hprop_scope.
