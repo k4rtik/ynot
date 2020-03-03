@@ -18,7 +18,7 @@
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
@@ -102,7 +102,7 @@ Infix "###" := free (no associativity, at level 60) : heap_scope.
 Infix "|*|" := join_valid (at level 40, left associativity) : heap_scope.
 *)
 
-Definition join (h1 h2 : heap) : heap := 
+Definition join (h1 h2 : heap) : heap :=
   (fun p => (h1 p) +o (h2 p)).
 
 Infix "*" := join (at level 40, left associativity) : heap_scope.
@@ -171,14 +171,14 @@ Hint Extern 1 (_ # _ = _) => autorewrite with Ynot in * : Ynot.
 
 (* in a total heap, everything has permission 0 *)
 
-Definition total_heap (h:heap) := forall p, 
+Definition total_heap (h:heap) := forall p,
   match (h p) with
     | None => True
     | Some v => frac v = top
   end.
 
 Theorem total_heap_empty : total_heap empty.
-Proof. 
+Proof.
   unfold total_heap, empty; intuition.
 Qed.
 
@@ -197,4 +197,3 @@ Proof.
 Qed.
 
 Hint Resolve total_heap_empty total_heap_new total_heap_free : Ynot.
-

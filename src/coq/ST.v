@@ -18,7 +18,7 @@
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
@@ -68,7 +68,7 @@ Parameter STFree : forall p,
   ST (fun h => exists d, h#p = Some (d,0)) (fun h (_ : unit) h' => h' = h###p).
 
 Parameter STRead : forall T (p : ptr),
-  ST (fun h => exists v : T, exists q : Qc, h#p = Some (Dyn v,q)) 
+  ST (fun h => exists v : T, exists q : Qc, h#p = Some (Dyn v,q))
   (fun h (v : T) h' => h' = h /\ exists q : Qc, h#p = Some (Dyn v,q)).
 
 Parameter STWrite : forall T T' (p : ptr) (v : T'),
