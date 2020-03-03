@@ -44,7 +44,7 @@ Section ocase.
     end (refl_equal _).
 End ocase.
 
-Implicit Arguments ocase [A B].
+Arguments ocase [A B].
 
 Notation "'IfNull' x 'Then' e1 'Else' e2" :=
   (ocase x (fun _ => e1) (fun x _ => e2))
@@ -75,13 +75,13 @@ Section natcase.
     end (refl_equal _).
 End natcase.
 
-Implicit Arguments natcase [B].
+Arguments natcase [B].
 
-Arguments Scope natcase [].
+Arguments natcase : clear scopes.
 Notation "'IfZero' x 'Then' e1 'Else' e2" :=
   (natcase x (fun _ => e1) (fun x _ => e2))
   (no associativity, at level 90).
 Notation "'IfZero' e 'As' x 'Then' e1 'Else' e2" :=
   (natcase e (fun _ => e1) (fun x _ => e2))
   (no associativity, at level 90).
-Arguments Scope natcase [type_scope nat_scope _ _].
+Arguments natcase B%type_scope disc%nat_scope.

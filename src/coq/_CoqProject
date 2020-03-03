@@ -8,7 +8,5 @@ Hprop.v
 ST.v
 STsep.v
 Separation.v
-Sep.v
-Hprop2.v
 Case.v
 Ynot.v
