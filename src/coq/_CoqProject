@@ -4,6 +4,7 @@ Axioms.v
 Util.v
 PermModel.v
 Heap.v
+QHeap.v
 Hprop.v
 ST.v
 STsep.v

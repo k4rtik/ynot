@@ -27,17 +27,16 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *)
 
-Require Import Arith List QArith Bool Qcanon.
+(* Require Import Arith List QArith Bool Qcanon. *)
 
 Require Import Ynot.Axioms.
 Require Import Ynot.Util.
-Require Import Ynot.PermModel.
-Require Import Ynot.Heap.
+Require Import Ynot.QHeap.
 
 Set Implicit Arguments.
 Unset Strict Implicit.
 
-Definition hprop := heap -> Prop.
+Definition hprop := qheap -> Prop.
 
 Declare Scope hprop_scope.
 Bind Scope hprop_scope with hprop.
@@ -50,13 +49,13 @@ Notation "'emp'" := hprop_empty : hprop_scope.
 Definition hprop_any : hprop := fun _ => True.
 Notation "??" := hprop_any : hprop_scope.
 
-Local Open Scope heap_scope.
+Local Open Scope qheap_scope.
 
 Definition hprop_inj (P : Prop) : hprop := fun h => h = empty /\ P.
 Notation "[ P ]" := (hprop_inj P) (at level 0, P at level 200) : hprop_scope.
 
-Definition hprop_cell (p : ptr) T (v : T) (pi:Qc): hprop := fun h =>
-  h#p = Some (Dyn v, pi) /\ forall p', p' <> p -> h#p' = None.
+Definition hprop_cell (p : label) T (v : T) : hprop := fun h =>
+  h#p = Some (Dyn v) /\ forall p', p' <> p -> h#p' = None.
 
 Notation "p -0-> v" := (hprop_cell p v 0) (at level 38, no associativity) : hprop_scope.
 Notation "p -[ f ]-> v" := (hprop_cell p v f) (at level 38, no associativity) : hprop_scope.
@@ -136,7 +135,7 @@ Arguments inhabit_unpack (T U)%type_scope inh%inhabited_scope f%hprop_scope.
 
 Notation "p ':~~' e1 'in' e2" := (let p := e1 in p ~~ e2) (at level 91, right associativity) : hprop_scope.
 
-Definition ptsto_any(p:ptr) (q:Qc): hprop := Exists A :@ Set, Exists v :@ A, p -[q]-> v.
+Definition ptsto_any(p:label) (q:Qc): hprop := Exists A :@ Set, Exists v :@ A, p -[q]-> v.
 Notation "p '-->?'" := (ptsto_any p 0) (at level 38, no associativity) : hprop_scope.
 Notation "p '-[' q ']->?'" := (ptsto_any p q) (at level 38, no associativity) : hprop_scope.
 
@@ -247,7 +246,7 @@ Ltac hval_plus_solve :=
 Ltac split_prover' :=
   unfold split, disjoint, join, read, heap, hvalo_plus, hval_plus; intuition; subst; try ext_eq;
     repeat match goal with
-             | [ H : _, p : ptr |- _ ] => generalize (H p); clear H; intro H
+             | [ H : _, p : label |- _ ] => generalize (H p); clear H; intro H
            end.
 
 Ltac split_prover_up :=
@@ -322,7 +321,7 @@ Proof.
   intros. split; eauto with Ynot.
 Qed.
 
-Definition heap_eq : relation heap := pointwise_relation ptr eq.
+Definition heap_eq : relation heap := pointwise_relation label eq.
 
 Instance: Proper (heap_eq ==> heap_eq ==> iff) disjoint.
 Proof. reduce.
@@ -448,12 +447,12 @@ Theorem split_writeSN : forall h h1 h2 p (T T' : Set) (v : T) (v' : T') q1,
   red in H; intuition; subst.
   unfold split, disjoint, join, write, read; intuition; subst.
 
-  destruct (ptr_eq_dec p0 p); subst; unfold join, read in *.
+  destruct (label_eq_dec p0 p); subst; unfold join, read in *.
     rewrite H1 in *; trivial.
     apply (H2 p0).
 
   unfold heap; ext_eq.
-  destruct (ptr_eq_dec x p); trivial.
+  destruct (label_eq_dec x p); trivial.
   unfold read in *; simpl; subst. rewrite H1. trivial.
 Qed.
 
@@ -468,12 +467,12 @@ Theorem split_writeNS : forall h h1 h2 p (T T' : Set) (v : T) (v' : T') q2,
   red in H; intuition; subst.
   unfold split, disjoint, join, write, read; intuition; subst.
 
-  destruct (ptr_eq_dec p0 p); subst; unfold join, read in *.
+  destruct (label_eq_dec p0 p); subst; unfold join, read in *.
     rewrite H0 in *; trivial.
     apply (H2 p0).
 
   unfold heap; ext_eq.
-  destruct (ptr_eq_dec x p); trivial.
+  destruct (label_eq_dec x p); trivial.
   unfold read in *; simpl; subst. rewrite H0. trivial.
 Qed.
 
@@ -487,12 +486,12 @@ Theorem split_writeSS : forall h h1 h2 p (T T' : Set) (v : T) (v' : T') q1 q2,
   red in H; intuition; subst.
   unfold split, disjoint, join, write, read; intuition; subst.
 
-  destruct (ptr_eq_dec p0 p); subst; unfold join, read in *.
+  destruct (label_eq_dec p0 p); subst; unfold join, read in *.
     generalize (H2 p); unfold read; rewrite H0; rewrite H1; intuition.
     apply (H2 p0).
 
   unfold heap; ext_eq.
-  destruct (ptr_eq_dec x p); simpl; trivial.
+  destruct (label_eq_dec x p); simpl; trivial.
   unfold hval_plus. simpl.
   generalize (H2 p). rewrite H0; rewrite H1. simpl.  intuition.
   rewrite (perm_plus_when_compat H4). trivial.
@@ -508,11 +507,11 @@ Theorem new_sep : forall h p (T : Set) (v : T) q,
   red; intuition.
 
   unfold singleton, read in *.
-  destruct (ptr_eq_dec p0 p); subst; trivial.
+  destruct (label_eq_dec p0 p); subst; trivial.
   rewrite H; trivial.
 
   unfold read, write, singleton, join, heap in *; ext_eq.
-  destruct (ptr_eq_dec x p); subst; trivial.
+  destruct (label_eq_dec x p); subst; trivial.
   rewrite H. trivial.
 Qed.
 
@@ -579,7 +578,7 @@ Hint Resolve split_read_S0 : Ynot.
 Lemma free_none_eq h p : (h # p = None -> h ### p = h)%heap.
 Proof.
   unfold read, free, heap. intros. ext_eq.
-  destruct (ptr_eq_dec x p); congruence.
+  destruct (label_eq_dec x p); congruence.
 Qed.
 
 Hint Resolve free_none_eq : Ynot.
@@ -814,14 +813,14 @@ Proof.
 Theorem split_free : forall h h1 h2 p d,
   h ~> h1 * h2
   -> h1 # p = Some d
-  -> (forall p' : ptr, (p' = p -> False) -> h1 # p' = None)
+  -> (forall p' : label, (p' = p -> False) -> h1 # p' = None)
   -> (h ### p) ~> empty * (h2 ### p).
   intros.
 
   replace (h ### p) with (h2 ### p).
   auto with Ynot.
   unfold free, heap; ext_eq.
-  destruct (ptr_eq_dec x p); auto.
+  destruct (label_eq_dec x p); auto.
   generalize (H1 _ n); intro.
   red in H; intuition; subst.
   unfold join, hvalo_plus. unfold read in H2.

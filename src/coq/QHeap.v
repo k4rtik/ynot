@@ -31,16 +31,16 @@ Require Import Ynot.Axioms.
 
 Set Implicit Arguments.
 
-Axiom axiom_qbit : Set.
+Axiom axiom_label : Set.
 
-Definition qbit := axiom_qbit.
+Definition label := axiom_label.
 
-Axiom axiom_qbit_eq_dec : forall (a b : qbit), {a = b} + {a <> b}.
+Axiom axiom_label_eq_dec : forall (a b : label), {a = b} + {a <> b}.
 
-Definition qbit_eq_dec := axiom_qbit_eq_dec.
-(** Definition qbit := nat. ** possible, like in QIO **)
+Definition label_eq_dec := axiom_label_eq_dec.
+(** Definition label := nat. ** possible, like in QIO **)
 
-Definition qheap := qbit -> option dynamic. (* should be a boolean perhaps *)
+Definition qheap := label -> option dynamic. (* should be a Qbit -> boolean perhaps *)
 
 Declare Scope qheap_scope.
 Bind Scope qheap_scope with qheap.
@@ -49,13 +49,13 @@ Delimit Scope qheap_scope with qheap.
 Local Open Scope qheap_scope.
 
 Definition empty : qheap := fun _ => None. (* or "initial" heap *)
-Definition singleton (q : qbit) (v : dynamic) : qheap :=
-  fun q' => if qbit_eq_dec q' q then Some v else None.
-Definition lookup (h : qheap) (q : qbit) : option dynamic := h q.
-Definition update (h : qheap) (q : qbit) (v : dynamic) : qheap :=
-  fun q' => if qbit_eq_dec q' q then Some v else h q'.
-Definition forget (h : qheap) (q : qbit) : qheap :=
-  fun q' => if qbit_eq_dec q' q then None else h q'.
+Definition singleton (q : label) (v : dynamic) : qheap :=
+  fun q' => if label_eq_dec q' q then Some v else None.
+Definition lookup (h : qheap) (q : label) : option dynamic := h q.
+Definition update (h : qheap) (q : label) (v : dynamic) : qheap :=
+  fun q' => if label_eq_dec q' q then Some v else h q'.
+Definition forget (h : qheap) (q : label) : qheap :=
+  fun q' => if label_eq_dec q' q then None else h q'.
 
 Infix "|-->" := singleton (at level 35, no associativity) : qheap_scope.
 Notation "a # b" := (lookup a b) (at level 55, no associativity) : qheap_scope.
@@ -104,27 +104,27 @@ Qed.
 Theorem lookup_singleton_same : forall q v,
   (q |--> v) # q = Some v.
   unfold lookup, singleton; intros.
-  destruct (qbit_eq_dec q q); tauto.
+  destruct (label_eq_dec q q); tauto.
 Qed.
 
 Theorem lookup_singleton_diff : forall q v q',
   q' <> q
   -> (q |--> v) # q' = None.
   unfold lookup, singleton; intros.
-  destruct (qbit_eq_dec q' q); tauto.
+  destruct (label_eq_dec q' q); tauto.
 Qed.
 
 Theorem lookup_update_same : forall h q v,
   (h ## q <- v) # q = Some v.
   unfold lookup, update; intros.
-  destruct (qbit_eq_dec q q); tauto.
+  destruct (label_eq_dec q q); tauto.
 Qed.
 
 Theorem lookup_update_diff : forall h q v q',
   q' <> q
   -> (h ## q <- v) # q' = h # q'.
   unfold lookup, update; intros.
-  destruct (qbit_eq_dec q' q); tauto.
+  destruct (label_eq_dec q' q); tauto.
 Qed.
 
 Hint Rewrite lookup_empty lookup_singleton_same lookup_update_same : Ynot.
