@@ -1,12 +1,16 @@
 -R . Ynot
 
 Axioms.v
-Util.v
-PermModel.v
+Basis.v
+Case.v
+Extract.v
 Heap.v
 Hprop.v
-ST.v
-STsep.v
+PermModel.v
 Separation.v
-Case.v
+STsep.v
+ST.v
+Util.v
 Ynot.v
+#Sep.v
+#Hprop2.v

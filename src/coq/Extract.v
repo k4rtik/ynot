@@ -18,7 +18,7 @@
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
@@ -27,14 +27,15 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *)
 
-Extraction Language Ocaml.
+Require Extraction.
+Extraction Language OCaml.
 
 (** Standard Extractions **)
 Require Import List.
 Require Import String.
 
 Extract Inductive unit    => "unit" [ "()" ].
-Extract Inductive bool    => "bool" [ "true" "false" ]. 
+Extract Inductive bool    => "bool" [ "true" "false" ].
 Extract Inductive sumbool => "bool" [ "true" "false" ].
 Extract Inductive list    => "list" [ "[]" "(::)" ].
 Extract Inductive string  => "MlCoq.ascii list" [ "[]" "(::)" ].
@@ -42,7 +43,7 @@ Extract Inductive string  => "MlCoq.ascii list" [ "[]" "(::)" ].
 (** ST Extractions **)
 Require Import Ynot.
 
-Extract Constant ST "'t" => " 't STImpl.axiom_ST ".  
+Extract Constant ST "'t" => " 't STImpl.axiom_ST ".
 
 Extract Constant STBind       => "STImpl.axiom_STBind".
 Extract Constant STReturn     => "STImpl.axiom_STReturn".

@@ -18,7 +18,7 @@
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
@@ -34,7 +34,7 @@ Require Import String.
 Require Import List.
 Require Import Ascii.
 
-Open Local Scope hprop_scope.
+Local Open Scope hprop_scope.
 
 (** String <-> List Conversion **)
 Fixpoint str2la (str : string) : list ascii :=
@@ -75,7 +75,7 @@ Definition printStringLn' (s : list Ascii.ascii) :
 
 (** Numbers -> Strings **)
 
-Open Local Scope char_scope.
+Local Open Scope char_scope.
 
 Definition dd n :=
   match n with
@@ -113,4 +113,3 @@ Fixpoint ntos' (x : nat) (n : nat) (l : list ascii) {struct x} :=
   end.
 
 Definition ntos (x : nat) : string := la2str (ntos' x x nil).
-
