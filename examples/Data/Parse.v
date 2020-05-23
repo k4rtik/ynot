@@ -236,7 +236,7 @@ Section Parse.
   Definition Parser(t:Set)(e:Term t) := 
     forall (instream:instream_t char)(n:[nat]),parser instream e n.
 
-  Open Local Scope stsep_scope. 
+  Local Open Scope stsep_scope. 
 
   (* Some simple tactics to help automate the proofs below. *)
 
@@ -600,7 +600,7 @@ Section Examples.
     unfold number, digit, ws ; gtac.
   Defined.
 
-  Open Local Scope stsep_scope.
+  Local Open Scope stsep_scope.
 
   Lemma StringLen(s:string) : (length s) = (List.length (string_to_list s)).
     induction s ; auto ; simpl. rewrite IHs. auto.

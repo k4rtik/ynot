@@ -33,7 +33,7 @@ Require Import Ynot.
 
 Set Implicit Arguments.
 
-Open Local Scope hprop_scope.
+Local Open Scope hprop_scope.
 
 Module Type QUEUE.
   Parameter t : Set -> Set.

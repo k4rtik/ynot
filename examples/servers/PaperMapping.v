@@ -230,7 +230,7 @@ Module Type ImplF (X: Model).
   Parameter T: Set.
   Parameter rep : forall (t: T) (m: M), hprop.
 
-  Open Local Scope hprop_scope.
+  Local Open Scope hprop_scope.
 (*
   Parameter imp_mutate : forall cfg t q (m: [M]),
     STsep (m ~~ rep t m * [I cfg m] * [P cfg q] * [E cfg q]) 
@@ -250,7 +250,7 @@ Module BuildApp (Y: Impl) : App.
 
  Print X.
  Export C.
- Open Local Scope hprop_scope.
+ Local Open Scope hprop_scope.
  Definition Q := Command.
  Definition T : Set := (Config * C.T)%type.
  Definition RR : Set := Status.
@@ -284,8 +284,8 @@ Module WrapImpl (X: Model) (Y: Impl).
  Module W := WrapModel X.
  Export W.
 
- Open Local Scope stsepi_scope.
- Open Local Scope hprop_scope.
+ Local Open Scope stsepi_scope.
+ Local Open Scope hprop_scope.
  Definition imp_wrap cfg t q m : 
   STsep (m ~~ rep t m * [I cfg m] * [P cfg q] * [E cfg q]) 
    (fun r : Status => m ~~ Exists pf1 :@ I cfg m, 

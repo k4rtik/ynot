@@ -27,7 +27,7 @@ Module Http.
 
 End Http.
 
-Open Local Scope stsepi_scope.
+Local Open Scope stsepi_scope.
 Require Import Basis.
 
 Require Import GradebookInterface.

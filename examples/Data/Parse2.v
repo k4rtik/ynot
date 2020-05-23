@@ -171,7 +171,7 @@ Section PARSE.
 
   Definition wfCoerce (t:Set)(v:empvar t) : M t := match v with end.
 
-  Open Local Scope gdenote_scope.
+  Local Open Scope gdenote_scope.
 
   (* here we map a term e to a computation over lists of characters -- this is
    * essentially the same as with Parsec-style combinators, though I've chosen
@@ -290,7 +290,7 @@ Section PARSE.
     forall (ins:instream_t char)(n:[nat]), STsep (n ~~ rep ins n) (ans_str_correct n ins e).
   Implicit Arguments parser_t [t].
 
-  Open Local Scope stsep_scope. 
+  Local Open Scope stsep_scope. 
 
   Lemma EmpImpInj(P:Prop) : 
     P -> __ ==> [P].

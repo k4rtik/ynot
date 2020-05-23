@@ -269,7 +269,7 @@ Module Type Store.
 
   Export  StoreModel.
 
-  Open Local Scope hprop_scope.
+  Local Open Scope hprop_scope.
 
   (** Concrete type **)
   Parameter t : Set.
@@ -327,8 +327,8 @@ End Store.
 Module RefStore : Store.
   Export StoreModel.
 
-  Open Local Scope hprop_scope.
-  Open Local Scope stsepi_scope.
+  Local Open Scope hprop_scope.
+  Local Open Scope stsepi_scope.
 
   Definition t := ptr.
 
@@ -448,8 +448,8 @@ End RefStore.
 Module ListStore : Store.
   Import StoreModel.
 
-  Open Local Scope hprop_scope.
-  Open Local Scope stsepi_scope.
+  Local Open Scope hprop_scope.
+  Local Open Scope stsepi_scope.
 
   Definition t := ptr.
 

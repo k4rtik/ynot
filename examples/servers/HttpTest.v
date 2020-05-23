@@ -4,8 +4,8 @@ Require Import RSep.
 Require Import HttpParser.
 Require Import Packrat Stream.
 
-Open Local Scope stsepi_scope.
-Open Local Scope hprop_scope.
+Local Open Scope stsepi_scope.
+Local Open Scope hprop_scope.
 
 Ltac s := unfold HTTP_correct,Packrat.ans_correct in *; rsep fail auto.
 

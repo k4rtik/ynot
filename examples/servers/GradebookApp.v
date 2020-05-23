@@ -41,7 +41,7 @@ Module Type GradebookType.
 
   Parameter func_preserves_I : forall q m, I m -> I (snd (func q m)).
 
-  Open Local Scope hprop_scope.
+  Local Open Scope hprop_scope.
   Parameter exec : forall (t : T) (q : Q) (m : [M]) (tr : [Trace]),
     STsep (tr ~~ m ~~ rep t m  * traced tr * [I m]  ) 
           (fun r : RR => tr ~~ m ~~ 

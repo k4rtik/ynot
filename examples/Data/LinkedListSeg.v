@@ -4,8 +4,8 @@ Require Import Peano_dec.
 
 Set Implicit Arguments.
 
-Open Local Scope hprop_scope.
-Open Local Scope stsepi_scope.
+Local Open Scope hprop_scope.
+Local Open Scope stsepi_scope.
 
 Section LinkedListSegModel.
  Variable A : Set.

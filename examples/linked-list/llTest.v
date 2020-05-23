@@ -33,9 +33,9 @@ Require Import Data.LinkedListSeg.
 Require Import Ascii.
 Require Import List.
 
-Open Local Scope char_scope.
-Open Local Scope stsepi_scope.
-Open Local Scope hprop_scope.
+Local Open Scope char_scope.
+Local Open Scope stsepi_scope.
+Local Open Scope hprop_scope.
 
 Definition CharLL := HeapLinkedListSeg ascii.
 

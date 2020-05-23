@@ -33,8 +33,8 @@ Require Import Arith.
 Require Import Omega.
 Set Implicit Arguments.
 
-Open Local Scope stsep_scope.
-Open Local Scope hprop_scope.
+Local Open Scope stsep_scope.
+Local Open Scope hprop_scope.
 
 Section Array.
 

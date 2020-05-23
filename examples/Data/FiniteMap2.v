@@ -64,7 +64,7 @@ Module FiniteMapInterface.
       end
     end.
 
-  Open Local Scope hprop_scope.
+  Local Open Scope hprop_scope.
   Record finite_map_t : Type := mkFM { 
     fmap_t : Set ; 
     rep : fmap_t -> alist_t -> hprop ; 
@@ -93,8 +93,8 @@ Module RefAssocList.
   Definition Nil := F.Nil_al value_t.
   Definition Cons := @F.Cons_al key_t value_t.
 
-  Open Local Scope stsep_scope.
-  Open Local Scope hprop_scope.
+  Local Open Scope stsep_scope.
+  Local Open Scope hprop_scope.
 
   Definition fmap_t := ptr.
   Definition rep(x:fmap_t)(y:alist_t) : hprop := (x --> y).
@@ -166,8 +166,8 @@ Module HashTable.
                      else filter_hash i l'
     end.
 
-  Open Local Scope stsep_scope.
-  Open Local Scope hprop_scope.
+  Local Open Scope stsep_scope.
+  Local Open Scope hprop_scope.
 
   Definition wf_bucket(f:fmap_t)(l:alist_t)(i:nat) : hprop := 
     (Exists r :@ FiniteMapInterface.fmap_t FM,

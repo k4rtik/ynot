@@ -14,8 +14,8 @@ Opaque la2str str2la.
 
 Set Implicit Arguments.
 
-Open Local Scope hprop_scope.
-Open Local Scope stsepi_scope.
+Local Open Scope hprop_scope.
+Local Open Scope stsepi_scope.
 
 Module HttpAppStateParams (AP : App) (AI : AppInterface with Module A := AP) : TcpServer.STATE_EXECPARAMS.
 

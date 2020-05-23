@@ -10,8 +10,8 @@ Require Import Stream Parsec Charset.
 Import STRING_INSTREAM.
 Import INSTREAM.
 
-Open Local Scope hprop_scope.
-Open Local Scope stsepi_scope.
+Local Open Scope hprop_scope.
+Local Open Scope stsepi_scope.
 
 Set Implicit Arguments.
 

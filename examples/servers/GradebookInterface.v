@@ -128,7 +128,7 @@ Module HttpGradebookInterface (AP : GradebookType) : AppInterface with Module A 
   Definition grammar := GradebookParser.CommandGrammar.
   Definition parser  := GradebookParser.CommandParser.
 
-  Open Local Scope string_scope.
+  Local Open Scope string_scope.
   Export Basis.
 
   Definition header : list ascii := str2la (

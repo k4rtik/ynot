@@ -136,7 +136,7 @@ Notation "x <- c1 ; c2" := (MBind c1 (fun x => c2))
 
 Definition wfCoerce (t:Set)(v:empvar t) : M t := match v with end.
 
-Open Local Scope gdenote_scope.
+Local Open Scope gdenote_scope.
 
 (* here we map a term e to a computation over lists of characters -- this is
  * essentially the same as with Parsec-style combinators, though I've chosen
@@ -252,7 +252,7 @@ Definition parser_t(t:Set)(e:Term t) :=
   forall (ins:instream_t char)(n:[nat]), STsep (n ~~ rep ins n) (ans_str_correct n ins e).
 Implicit Arguments parser_t [t].
 
-Open Local Scope stsep_scope. 
+Local Open Scope stsep_scope. 
 
 Lemma EmpImpInj(P:Prop) : 
   P -> __ ==> [P].
@@ -486,7 +486,7 @@ Definition parser_t'(t:Set)(e:Term t)(p:(instream_t char * [nat])) :=
   let n := snd p in
   STsep (n ~~ rep ins n) (ans_str_correct n ins e).
 
-Open Local Scope stsepi_scope.
+Local Open Scope stsepi_scope.
 
 (* Alas, note that we need H here -- can't easily prove this once and for all *)
 Definition Gfix(t:Set)(f:forall V, V t -> term V t)

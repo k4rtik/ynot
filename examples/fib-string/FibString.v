@@ -32,9 +32,9 @@ Require Import Basis.
 Require Import List.
 Require Import String.
 
-Open Local Scope string_scope.
-Open Local Scope stsepi_scope.
-Open Local Scope hprop_scope.
+Local Open Scope string_scope.
+Local Open Scope stsepi_scope.
+Local Open Scope hprop_scope.
 
 Definition fib : nat -> STsep (__) (fun _ : string => __).
   intro y.

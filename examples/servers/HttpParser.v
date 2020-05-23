@@ -113,7 +113,7 @@ Definition Lit := @Lit AsciiCharset TyIndex IndexDenote.
 Definition Map := @Map AsciiCharset TyIndex IndexDenote.
 Definition Seq := @Seq AsciiCharset TyIndex IndexDenote.
 
-Open Local Scope grammar_scope.
+Local Open Scope grammar_scope.
 
 Fixpoint enum ctx {T : ty TyIndex} (t' : tyDenote _ T) (t : list (string * tyDenote _ T)) : term' ctx T :=
   match t with
@@ -239,7 +239,7 @@ Definition HTTP_env :=
       tt)))))))))))))))))))))))))))
  ).
 
-Open Local Scope hprop_scope.
+Local Open Scope hprop_scope.
 
 Definition HTTP_simple_correct
     (ins : Stream.INSTREAM.instream_t ascii) (n : nat) (a : option (nat * string)) :=

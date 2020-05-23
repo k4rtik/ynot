@@ -42,7 +42,7 @@ Set Implicit Arguments.
  * which could be the result of opening a file, or as shown below, could 
  * be a stream constructed from a string. *)
 Section INSTREAM.
-  Open Local Scope hprop_scope.
+  Local Open Scope hprop_scope.
 
   (* get next element from the stream, but don't advance the stream *)
   Definition peek_t(elt:Set)(stream_elts : [list elt])(rep:nat -> hprop) := 
@@ -103,8 +103,8 @@ End INSTREAM.
  *)
 Section STRING_INSTREAM.
   Require Import String.
-  Open Local Scope stsep_scope.
-  Open Local Scope hprop_scope.
+  Local Open Scope stsep_scope.
+  Local Open Scope hprop_scope.
 
   (* For string-streams, the internal state is just a ref to the current offset *)
   Definition string_rep(s:list ascii)(x:ptr)(n:nat) : hprop := (x --> n)%hprop.

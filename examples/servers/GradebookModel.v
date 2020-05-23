@@ -621,7 +621,7 @@ End GradebookModel.
 Module ExampleConfig.
   Import GradebookModel.
 
-  Open Local Scope string_scope.
+  Local Open Scope string_scope.
 
   Definition test_config : Config := 
      mkCfg (4::5::6::nil)              (* students *)

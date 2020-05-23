@@ -1,10 +1,10 @@
 
 all:
-	$(MAKE) -C Data
-	$(MAKE) -C hello-world
-	$(MAKE) -C fib-string
-	$(MAKE) -C linked-list
-	$(MAKE) -C Parse
+#	$(MAKE) -C Data
+#	$(MAKE) -C hello-world
+#	$(MAKE) -C fib-string
+#	$(MAKE) -C linked-list
+#	$(MAKE) -C Parse
 	$(MAKE) -C IO
 
 clean:

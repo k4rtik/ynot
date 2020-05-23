@@ -49,7 +49,7 @@ For interactive Emacs development with Proof General, it is useful to add a vari
 
 With such a setting, you should be able to execute the [Require Import] line without complaint.  Afterward, we open a notation scope, to enable use of concise notations for assertions about heaps. *)
 
-Open Local Scope hprop_scope.
+Local Open Scope hprop_scope.
 
 (** Next, we write a module signature that defines the ADT (abstract data type) of mutable counters. *)
 

@@ -47,7 +47,7 @@ Module Type Impl.
   Parameter T   : Type.
   Parameter rep : forall (cfg: Config) (t: T) (m: Impl.M cfg), hprop.
 
-  Open Local Scope hprop_scope.
+  Local Open Scope hprop_scope.
   (** This should be in terms of Impl **)
   Parameter imp_mutate : forall cfg (t: T) q (m: [Impl.M cfg]),
     STsep (m ~~ rep t m * [Impl.I m]) 
@@ -68,7 +68,7 @@ End Impl.
 (* Deploy an implementation based on a specification *)
 Module BuildApp (Y': Impl) : App.
   Module Y := Y'.
-  Open Local Scope hprop_scope.
+  Local Open Scope hprop_scope.
 
   Definition Q := Command.
   Definition T  : Type := (Config * Y.T)%type.
@@ -90,7 +90,7 @@ Module BuildApp (Y': Impl) : App.
     intros.  subst. auto.
   Qed.
 
-  Open Local Scope stsepi_scope.
+  Local Open Scope stsepi_scope.
 
   Definition inhabit_unpack' T U (inh : [T]) (f: forall t:T, [t]%inhabited = inh -> U) : [U].
     intros. refine (
@@ -434,7 +434,7 @@ Module GbStoreImpl  (s: Store)  <: Impl. (* had name clash *)
   Definition rep (cfg : Config) (t: T) (m: M.M cfg) : hprop :=
     s.rep t m.
 
-  Open Local Scope hprop_scope.
+  Local Open Scope hprop_scope.
 
   Definition imp_mutate : forall cfg (t: T ) q (m: [M.M cfg]),
     STsep (m ~~ rep t m * [M.I m] ) 
@@ -503,8 +503,8 @@ Module WrapImpl (X: Model) (Y: Impl).
  Module W := WrapModel X.
  Export W.
 
- Open Local Scope stsepi_scope.
- Open Local Scope hprop_scope.
+ Local Open Scope stsepi_scope.
+ Local Open Scope hprop_scope.
  Definition imp_wrap cfg t q m : 
   STsep (m ~~ rep t m * [I cfg m] * [P cfg q] * [E cfg q]) 
    (fun r : Status => m ~~ Exists pf1 :@ I cfg m, 

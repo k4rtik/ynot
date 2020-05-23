@@ -9,8 +9,8 @@ Definition ptsto_any_tot (p : ptr) :=
 Require Import Array.
 Require Import List.
 Require Import Relations.
-Open Local Scope hprop_scope.
-Open Local Scope stsepi_scope.
+Local Open Scope hprop_scope.
+Local Open Scope stsepi_scope.
 Require Import Arith.
 
 Generalizable All Variables.
@@ -488,7 +488,7 @@ Section UnionFind.
 
   Definition t (size : nat) := @uf size. 
 
-  Open Local Scope nat_scope.
+  Local Open Scope nat_scope.
 
   Inductive repr {size} (p : partition size) : fin size -> fin size -> Prop :=
     repr_zero : forall i, p i = i -> repr p i i

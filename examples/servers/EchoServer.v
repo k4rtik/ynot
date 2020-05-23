@@ -4,8 +4,8 @@ Require Import Ynot.
 Require Import IO FS Net.
 Require Import UdpServer TcpServer SslServer.
 
-Open Local Scope hprop_scope.
-Open Local Scope stsepi_scope.
+Local Open Scope hprop_scope.
+Local Open Scope stsepi_scope.
 
 Set Implicit Arguments.
 

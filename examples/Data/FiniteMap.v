@@ -59,7 +59,7 @@ Module FINITE_MAP_T(Assoc:ASSOCIATION)(AT:FINITE_MAP_AT with Module A:=Assoc).
 
   Import A AT AL.
 
-  Open Local Scope hprop_scope.
+  Local Open Scope hprop_scope.
 
   (* Allocates a new finite map *)
   Definition new := 

@@ -5,8 +5,8 @@ Require Import RSep.
 
 Set Implicit Arguments.
 
-Open Local Scope stsepi_scope.
-Open Local Scope hprop_scope.
+Local Open Scope stsepi_scope.
+Local Open Scope hprop_scope.
 
 Inductive mode : Set := R | W.
 

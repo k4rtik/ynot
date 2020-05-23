@@ -41,8 +41,8 @@ Module BinaryTree(BT : BINARY_TREE_ASSOCIATION). (* : FINITE_MAP with Module A :
   Module AL := AssocListOrdModel(BT).
   Import AL.
   
-  Open Local Scope stsepi_scope.
-  Open Local Scope hprop_scope.
+  Local Open Scope stsepi_scope.
+  Local Open Scope hprop_scope.
 
   Module AT <: FINITE_MAP_AT with Module A:=A.
     Module A := A.

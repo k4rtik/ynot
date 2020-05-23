@@ -133,7 +133,7 @@ Section Packrat.
     Notation "'Return' x" := (MReturn x) (at level 75) : gdenote_scope.
     Notation "x <- c1 ; c2" := (MBind c1 (fun x => c2)) 
       (right associativity, at level 84, c1 at next level) : gdenote_scope.
-    Open Local Scope gdenote_scope.
+    Local Open Scope gdenote_scope.
 
     Definition join_consume (c1 c2:consumed_t) : consumed_t := 
       match c1, c2 with 
@@ -260,8 +260,8 @@ Section Packrat.
   (************************************************************)
   Require Import Ynot.
   Require Import FiniteMap2.
-  Open Local Scope hprop_scope.
-  Open Local Scope stsepi_scope.
+  Local Open Scope hprop_scope.
+  Local Open Scope stsepi_scope.
   Section Parsing.
     (* we work relative to a typing context and environment for the non-terminals *)
     Variable G : Ctxt.

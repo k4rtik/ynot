@@ -141,7 +141,7 @@ Module HashTableModel(A : HASH_ASSOCIATION).
 Module HashTable(HA : HASH_ASSOCIATION)
                 (F : FINITE_MAP with Module A := HA) : FINITE_MAP with Module A := HA.
 
-  Open Local Scope hprop_scope.
+  Local Open Scope hprop_scope.
   Require Export Array.
   Require Import Peano_dec.
 
@@ -174,8 +174,8 @@ Module HashTable(HA : HASH_ASSOCIATION)
   Module AL := F.AL.
   Import AL AT HL.
   
-  Open Local Scope stsepi_scope.
-  Open Local Scope hprop_scope.
+  Local Open Scope stsepi_scope.
+  Local Open Scope hprop_scope.
 
   Ltac s := T.unfm_t; intros.
 

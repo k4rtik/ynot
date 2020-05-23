@@ -2,9 +2,9 @@ Require Import List Ascii.
 Require Import Ynot.
 Require Import IO Net FS.
 
-Open Local Scope hprop_scope.
-Open Local Scope stsepi_scope.
-Open Local Scope char_scope.
+Local Open Scope hprop_scope.
+Local Open Scope stsepi_scope.
+Local Open Scope char_scope.
 
 Set Implicit Arguments.
 

@@ -4,8 +4,8 @@ Require Import IO Net.
 
 (* todo what does Warning: Trying to mask the absolute name "IO" mean *)
 
-Open Local Scope hprop_scope.
-Open Local Scope stsepi_scope.
+Local Open Scope hprop_scope.
+Local Open Scope stsepi_scope.
 
 Set Implicit Arguments.
 

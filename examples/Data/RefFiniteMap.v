@@ -37,7 +37,7 @@ Require Import Data.FiniteMap.
 Set Implicit Arguments.
 
 Module RefAssocList(Assoc:ASSOCIATION) : FINITE_MAP with Module A := Assoc.
-  Open Local Scope hprop_scope.
+  Local Open Scope hprop_scope.
 
   Module AT <: FINITE_MAP_AT with Module A:=Assoc.
     Module A := Assoc.
@@ -51,7 +51,7 @@ Module RefAssocList(Assoc:ASSOCIATION) : FINITE_MAP with Module A := Assoc.
   Module AL := T.AL.
 
   Import AT AL.
-  Open Local Scope stsepi_scope.
+  Local Open Scope stsepi_scope.
 
   Ltac s := T.unfm_t; intros.
   Ltac t := unfold rep, insert; sep fail ltac:(subst; auto); autorewrite with AssocListModel; sep fail ltac:(eauto).

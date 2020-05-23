@@ -30,7 +30,7 @@ fix nth_error (l : list A) (n : nat) {struct n} : Exc A :=
  * which could be the result of opening a file, or as shown below, could 
  * be a stream constructed from a string. *)
 Module INSTREAM.
-  Open Local Scope hprop_scope.
+  Local Open Scope hprop_scope.
 
   (* get next element from the stream, but don't advance the stream *)
   Definition peek_t(elt:Set)(stream_elts : [list elt])(rep:nat -> hprop) := 
@@ -91,8 +91,8 @@ End INSTREAM.
  *)
 Module STRING_INSTREAM.
   Require Import String.
-  Open Local Scope stsep_scope.
-  Open Local Scope hprop_scope.
+  Local Open Scope stsep_scope.
+  Local Open Scope hprop_scope.
   Import INSTREAM.
 
   (* For string-streams, the internal state is just a ref to the current offset *)
