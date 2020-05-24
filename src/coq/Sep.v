@@ -150,13 +150,13 @@ Ltac equater :=
 Ltac findContents ptr P :=
   let P := eval simpl in P in
   match P with
-    | (ptr -[ ?q ]-> ?V)%hprop => constr:(V, __)%hprop
+    | (ptr -[ ?q ]-> ?V)%hprop => constr:((V, __)%hprop)
     | (?P1 * ?P2)%hprop =>
       match findContents ptr P1 with
-        | (?V, ?P1) => constr:(V, P1 * P2)%hprop
+        | (?V, ?P1) => constr:((V, P1 * P2)%hprop)
         | _ =>
           match findContents ptr P2 with
-            | (?V, ?P2) => constr:(V, P1 * P2)%hprop
+            | (?V, ?P2) => constr:((V, P1 * P2)%hprop)
           end
       end
     | _ => tt
@@ -496,7 +496,7 @@ Ltac sep_change2 F :=
     | [ |- context[F ?X1 ?Y1] ] =>
       match goal with
         | [ |- context[F ?X2 ?Y2] ] =>
-          match constr:(X1, Y1) with
+          match constr:((X1, Y1)) with
             | (X2, Y2) => fail 1
             | _ =>
               intro_pure;

@@ -5,12 +5,12 @@ Basis.v
 Case.v
 Extract.v
 Heap.v
+Hprop2.v
 Hprop.v
 PermModel.v
 Separation.v
+Sep.v
 STsep.v
 ST.v
 Util.v
 Ynot.v
-#Sep.v
-#Hprop2.v

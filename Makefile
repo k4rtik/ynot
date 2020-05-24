@@ -1,13 +1,13 @@
 all:
 	$(MAKE) -C src/coq
-#	$(MAKE) -C examples
+	$(MAKE) -C examples
 
 cleandep:
 	rm */.depend
 
 clean:
 	$(MAKE) -C src/coq clean
-#	$(MAKE) -C examples clean
+	$(MAKE) -C examples clean
 #	$(MAKE) -C doc clean
 
 doc:
